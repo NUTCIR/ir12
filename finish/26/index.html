@@ -58,22 +58,22 @@
         grey: 'rgb(201, 203, 207)'
     };
     var barChartData = {
-        labels: ['107年度', '108年度', '109年度'],
+        labels: ['108年度', '109年度', '110年度'],
         datasets: [{
             label: '就學貸款',
             backgroundColor: window.chartColors.blue,
             stack: 'Stack 0',
-            data: [2158, 2147, 2188]
+            data: [2147, 2188, 2397]
         }, {
             label: '獎助學金',
             backgroundColor: window.chartColors.red,
             stack: 'Stack 1',
-            data: [3259, 3321, 3423]
+            data: [3321, 3423, 3271]
         }, {
             label: '學雜費減免',
             backgroundColor: window.chartColors.orange,
             stack: 'Stack 2',
-            data: [2375, 2397, 2460]
+            data: [2397, 2460, 2479]
         }]
 
     };
@@ -137,18 +137,18 @@
         });
     };
     function data1() {
-        barChartData.datasets[0].data = [2158, 2147, 2188]
-        barChartData.datasets[1].data = [3259, 3321, 3423]
-        barChartData.datasets[2].data = [2375, 2397, 2460]
+        barChartData.datasets[0].data = [2147, 2188, 2302]
+        barChartData.datasets[1].data = [3321, 3423, 3271]
+        barChartData.datasets[2].data = [2397, 2460, 2497]
         window.myBar.options.scales.yAxes[0].ticks.callback = function (value, index, values) {
             return value + '人';
         }
         window.myBar.update()
     }
     function data2() {
-        barChartData.datasets[0].data = [55.83, 56.69, 56.36]
-        barChartData.datasets[1].data = [36.29, 39.69, 40.77]
-        barChartData.datasets[2].data = [33.21, 33.54, 34.44]
+        barChartData.datasets[0].data = [56.69, 56.36, 61.61]
+        barChartData.datasets[1].data = [39.69, 40.77, 40.01]
+        barChartData.datasets[2].data = [33.54, 34.44, 35.11]
         window.myBar.options.scales.yAxes[0].ticks.callback = function (value, index, values) {
             return value + '百萬元';
         }

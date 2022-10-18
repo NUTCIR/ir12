@@ -36,7 +36,7 @@
 		grey: 'rgb(201, 203, 207)'
 	};
 	var barChartData = {
-		labels: ['Q1', 'Q2', 'Q3'],
+		labels: ['Q1', 'Q2'],
 		yAxisID: 'y',
 		datasets: [
 			{
@@ -49,21 +49,21 @@
 				datalabels: {
 					color: 'transparent'
 				},
-				data: [(3395201 + 3599485) / 2, (3395201 + 3514527) / 2, (3395201 + 3705430) / 2]
+				data: [(3616694 + 3786489) / 2, (3616694 + 3575083) / 2]
 			},
 			{
 				type: 'bar',
 				label: '期初',
 				backgroundColor: window.chartColors.blue,
 				stack: 'Stack 1',
-				data: [3395201, 3395201, 3395201]
+				data: [3616694, 3616694]
 			},
 			{
 				type: 'bar',
 				label: '期末',
 				backgroundColor: window.chartColors.purple,
 				stack: 'Stack 2',
-				data: [3599485, 3514527, 3705430]
+				data: [3786489, 3575083]
 			},
 		]
 	};
@@ -76,7 +76,7 @@
 			options: {
 				title: {
 					display: true,
-					text: '110年各季可用資金變化情形',
+					text: '111年各季可用資金變化情形',
 					fontSize: 18
 				},
 				tooltips: {
