@@ -24,15 +24,10 @@
 
 <body>
     <div class="container">
-        <h2 class=" text-center">台泰日越大專學生學習成效與滿意度調查</h2>
+        <h2 class=" text-center">2022台泰日越大專學生學習成效與滿意度調查</h2>
         <h2 class=" text-center">填答率查詢系統</h2>
         <h5 style="text-align: right;">以下資料統計時間為：111 年 7 月 10 日 23:59 分</h3>
             <div class="col-3 text-center" style="margin-top: 3rem;">
-                <select class="selectpicker" data-live-search="true" id="Year_0" data-max-options="" title="請選擇年度">
-                    <option value="0">111年度</option>
-                    <option value="1">110年度</option>
-                </select>
-
                 <select class="selectpicker" multiple data-live-search="true" id="Dep_0" data-max-options=""
                     title="請選擇部別" data-actions-box="true" data-none-selected-text="全部" data-select-all-text="全選"
                     data-deselect-all-text="取消全選">
@@ -82,7 +77,6 @@
     response_rate = []//填答率
     answered = []//已填答
     no_answer = []//未填答
-    var urls = ["final.xlsx", "final-2021.xlsx"]
     const data = {
         labels: labels,
         datasets: [{
@@ -151,7 +145,7 @@
             maintainAspectRatio: true,//保持長寬比
             title: {
                 display: false,
-                text: '台泰日越大專學生學習成效與滿意度調查',
+                text: '2022台泰日越大專學生學習成效與滿意度調查',
                 fontSize: 22
             },
             legend: {
@@ -226,9 +220,6 @@
             },
         }]
     };
-
-
-
     myChart = new Chart(document.getElementById('myChart'), config);
 
     $('#Dep_2').change(function () {
@@ -262,12 +253,11 @@
                 a[i] = e.split(/\n/);
             }
         });
-        myChart.update();
+        myChart.update()
     })
-
     ///學院選擇
     $('#Dep_1').change(function () {
-        Dep_1_chose = $('#Dep_1').val();
+        Dep_1_chose = $('#Dep_1').val()
         Dep_2 = []
         if (Dep_1_chose) {
             for (var i = 0; i < Dep_1_chose.length; i++) {
@@ -287,14 +277,12 @@
         if ($('#Dep_2').val() == null) {
             college(Dep_1_chose);
         }
-
     })
     ///部別選擇
     $('#Dep_0').change(function () {
         Dep_0_chose = $('#Dep_0').val()
         Dep_1 = []
         if (Dep_0_chose) {
-            console.log('pass');
             for (var i = 0; i < Dep_0_chose.length; i++) {
                 keys = Object.keys(datadata[Dep_0_chose[i]])
                 for (var j = 0; j < keys.length; j++) {
@@ -307,19 +295,7 @@
             $('#Dep_1').append("<option value='" + [Dep_1[k][0], Dep_1[k][1]] + "'>" + Dep_1[k][0] + "-" + Dep_1[k][1] + "</option>")
         }
         $('#Dep_1').selectpicker('refresh');
-
     })
-    var oReq;
-    ///年度選擇
-    $('#Year_0').change(function () {
-        Year_0_chose = $('#Year_0').val();
-        console.log($('#Year_0')[0].value);
-        oReq = new XMLHttpRequest();
-        oReq.open("GET", urls[$('#Year_0')[0].value], true);
-        oReq.responseType = "arraybuffer";
-        showData()
-    })
-
     function college(dep2) {
         labels = []
         response_rate = []
@@ -353,57 +329,50 @@
         });
         myChart.update()
     }
-    oReq = new XMLHttpRequest();
-    oReq.open("GET", urls[0], true);
+    var url = "final.xlsx";
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", url, true);
     oReq.responseType = "arraybuffer";
-    var first = true;
-    showData(first);
-    function showData(f) {
-        oReq.onload = function (e) {
-            var arraybuffer = oReq.response;
-            var data = new Uint8Array(arraybuffer);
-            var arr = new Array();
-            for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-            var bstr = arr.join("");
-            var workbook = XLSX.read(bstr, { type: "binary" });
-            var first_sheet_name = workbook.SheetNames[0];
-            /* Get worksheet */
-            var worksheet = workbook.Sheets[first_sheet_name];
-            resdata = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-            res = {}
-            Dep = {}
-            Dep_current = 0
-            datadata = {}
-            function dataformat(current, target, num) {
-                if (num < target.length - 1) {
-                    if (current[target[num]]) {
-                        dataformat(current[target[num]], target, num + 1)
-                    }
-                    else {
-                        dataformat(current[target[num]] = {}, target, num + 1)
-                    }
+
+    oReq.onload = function (e) {
+        var arraybuffer = oReq.response;
+        var data = new Uint8Array(arraybuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+        var workbook = XLSX.read(bstr, { type: "binary" });
+        var first_sheet_name = workbook.SheetNames[0];
+        /* Get worksheet */
+        var worksheet = workbook.Sheets[first_sheet_name];
+        resdata = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        res = {}
+        Dep = {}
+        Dep_current = 0
+        datadata = {}
+        function dataformat(current, target, num) {
+            if (num < target.length - 1) {
+                if (current[target[num]]) {
+                    dataformat(current[target[num]], target, num + 1)
+                }
+                else {
+                    dataformat(current[target[num]] = {}, target, num + 1)
                 }
             }
-            function excel2json(target, content) {
-                dataformat(datadata, target, 0)
-                datadata[target[0]][target[1]][target[2]][target[3]] = content
-            }
-            for (var i = 1; i < resdata.length; ++i) {
-                // datadata[resdata[i][0]][resdata[i][1]][resdata[i][2]] = [resdata[i][3], resdata[i][4], resdata[i][5]]
-                current = resdata[i]
-                excel2json([current[0], current[1], current[2], current[3]], [current[4], current[5], current[6]])
-            }
-            if (f) {
-                $('#Year_0').selectpicker('val', 0);
-                first = false;
-                console.log('first load')
-            }
-            $('#Dep_0').selectpicker('val', ['日間部']);  //預設顯示調整
-            $('#Dep_0').change()
-            $('#Dep_1').selectpicker('selectAll');
         }
-        oReq.send();
+        function excel2json(target, content) {
+            dataformat(datadata, target, 0)
+            datadata[target[0]][target[1]][target[2]][target[3]] = content
+        }
+        for (var i = 1; i < resdata.length; ++i) {
+            // datadata[resdata[i][0]][resdata[i][1]][resdata[i][2]] = [resdata[i][3], resdata[i][4], resdata[i][5]]
+            current = resdata[i]
+            excel2json([current[0], current[1], current[2], current[3]], [current[4], current[5], current[6]])
+        }
+        $('#Dep_0').selectpicker('val', ['日間部']);  //預設顯示調整
+        $('#Dep_0').change()
+        $('#Dep_1').selectpicker('selectAll');
     }
+    oReq.send();
 
 </script>
 
