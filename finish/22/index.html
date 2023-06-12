@@ -62,7 +62,7 @@
                 var content = document.createElement("td")
                 content.scope = "row"
                 content.className = 'text-center'
-                content.innerHTML = value
+                content.innerHTML = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 title.appendChild(content)
             })
             document.getElementsByTagName("tbody")[0].appendChild(title)

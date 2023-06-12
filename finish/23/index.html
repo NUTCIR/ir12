@@ -92,7 +92,6 @@
                 content.scope = "row"
                 content.className = 'text-center'
                 content.innerHTML = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                console.log(value)
                 title.appendChild(content)
             })
             document.getElementsByTagName("tbody")[0].appendChild(title)
